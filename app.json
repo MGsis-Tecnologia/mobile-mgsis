@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "mobile-mgsis",
+    "slug": "mobile-mgsis",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.mgsis.mobile"
+    },
+    "android": {
+      "package": "br.com.mgsis.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#1d4ed8"
+      }
+    },
+    "plugins": []
+  }
+}
