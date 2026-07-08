@@ -1,4 +1,5 @@
 export type EtapaFunil = 'novo' | 'qualificacao' | 'proposta' | 'negociacao' | 'ganho' | 'perdido';
+export type CondicaoPagamento = 'vista' | 'prazo';
 
 export interface Usuario {
   id: string;
@@ -11,6 +12,7 @@ export interface Cliente {
   id: string;
   nome: string;
   cnpjCpf: string;
+  ruc?: string;
   telefone?: string;
   email?: string;
   limiteCredito: number;
@@ -22,6 +24,8 @@ export interface Produto {
   id: string;
   nome: string;
   sku: string;
+  codigoFabricante: string;
+  descricao: string;
   precoTabela: number;
   estoque: number;
 }
@@ -39,6 +43,7 @@ export interface Pedido {
   numero: string;
   itens: PedidoItem[];
   total: number;
+  condicaoPagamento: CondicaoPagamento;
   status: 'aberto' | 'faturado' | 'cancelado';
   criadoEm: string;
   origemOportunidadeId?: string;

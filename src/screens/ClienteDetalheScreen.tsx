@@ -87,7 +87,7 @@ export default function ClienteDetalheScreen() {
       </View>
 
       <Pressable
-        onPress={() => navigation.navigate('NovoPedido', { clienteId })}
+        onPress={() => navigation.navigate('NovoPedido')}
         className="bg-blue-700 rounded-lg py-3 items-center mb-6"
       >
         <Text className="text-white font-semibold">Novo Pedido</Text>

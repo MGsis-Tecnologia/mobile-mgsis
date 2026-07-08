@@ -1,9 +1,10 @@
 import { api } from './client';
-import { Pedido, PedidoItem } from '../types';
+import { Pedido, PedidoItem, CondicaoPagamento } from '../types';
 
 export interface NovoPedidoPayload {
   clienteId: string;
   itens: PedidoItem[];
+  condicaoPagamento: CondicaoPagamento;
 }
 
 export async function criarPedido(payload: NovoPedidoPayload): Promise<Pedido> {

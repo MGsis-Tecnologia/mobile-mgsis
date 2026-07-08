@@ -22,6 +22,15 @@ export function attachMockAdapter(instance: AxiosInstance) {
 
   mock.onGet('/clientes').reply(200, clientesMock);
 
+  mock.onGet('/clientes/buscar').reply((config) => {
+    const termo = (config.params?.termo ?? '').toLowerCase();
+    if (!termo) return [200, clientesMock];
+    const filtrados = clientesMock.filter(
+      (c) => c.nome.toLowerCase().includes(termo) || c.cnpjCpf.includes(termo) || c.ruc?.includes(termo)
+    );
+    return [200, filtrados];
+  });
+
   mock.onGet(/\/clientes\/[\w-]+$/).reply((config) => {
     const id = config.url!.split('/').pop();
     const cliente = clientesMock.find((c) => c.id === id);
@@ -34,6 +43,18 @@ export function attachMockAdapter(instance: AxiosInstance) {
   });
 
   mock.onGet('/produtos').reply(200, produtosMock);
+
+  mock.onGet('/produtos/buscar').reply((config) => {
+    const termo = (config.params?.termo ?? '').toLowerCase();
+    if (!termo) return [200, produtosMock];
+    const filtrados = produtosMock.filter(
+      (p) => p.nome.toLowerCase().includes(termo) ||
+             p.sku.toLowerCase().includes(termo) ||
+             p.codigoFabricante.toLowerCase().includes(termo) ||
+             p.descricao.toLowerCase().includes(termo)
+    );
+    return [200, filtrados];
+  });
 
   mock.onGet(/\/crm\/clientes\/[\w-]+\/timeline$/).reply((config) => {
     const id = config.url!.split('/')[3];
@@ -102,6 +123,7 @@ export function attachMockAdapter(instance: AxiosInstance) {
       numero,
       itens: [],
       total: oportunidade.valorEstimado,
+      condicaoPagamento: 'vista',
       status: 'aberto',
       criadoEm: new Date().toISOString(),
       origemOportunidadeId: oportunidade.id,
@@ -131,6 +153,7 @@ export function attachMockAdapter(instance: AxiosInstance) {
       numero: String(proximoNumeroPedido++),
       itens,
       total: itens.reduce((acc: number, item: { quantidade: number; precoUnitario: number }) => acc + item.quantidade * item.precoUnitario, 0),
+      condicaoPagamento: body.condicaoPagamento ?? 'vista',
       status: 'aberto',
       criadoEm: new Date().toISOString(),
     };
